@@ -1,8 +1,6 @@
 import argparse
 import torch
 import torch.nn as nn
-
-
 class GRULinear(nn.Module):
     def __init__(self, num_gru_units: int, output_dim: int, bias: float = 0.0):
         super(GRULinear, self).__init__()
@@ -14,11 +12,9 @@ class GRULinear(nn.Module):
         )
         self.biases = nn.Parameter(torch.FloatTensor(self._output_dim))
         self.reset_parameters()
-
     def reset_parameters(self):
         nn.init.xavier_uniform_(self.weights)
         nn.init.constant_(self.biases, self._bias_init_value)
-
     def forward(self, inputs, hidden_state):
         batch_size, num_nodes = inputs.shape
         # inputs (batch_size, num_nodes, 1)
@@ -38,15 +34,12 @@ class GRULinear(nn.Module):
         # [x, h]W + b (batch_size, num_nodes * output_dim)
         outputs = outputs.reshape((batch_size, num_nodes * self._output_dim))
         return outputs
-
     def hyperparameters(self):
         return {
             "num_gru_units": self._num_gru_units,
             "output_dim": self._output_dim,
             "bias_init_value": self._bias_init_value,
         }
-
-
 class GRUCell(nn.Module):
     def __init__(self, input_dim: int, hidden_dim: int):
         super(GRUCell, self).__init__()
@@ -69,19 +62,15 @@ class GRUCell(nn.Module):
         # h (batch_size, num_nodes * num_gru_units)
         new_hidden_state = u * hidden_state + (1 - u) * c
         return new_hidden_state, new_hidden_state
-
     @property
     def hyperparameters(self):
         return {"input_dim": self._input_dim, "hidden_dim": self._hidden_dim}
-
-
 class GRU(nn.Module):
     def __init__(self, input_dim: int, hidden_dim: int, **kwargs):
         super(GRU, self).__init__()
         self._input_dim = input_dim  # num_nodes for prediction
         self._hidden_dim = hidden_dim
         self.gru_cell = GRUCell(self._input_dim, self._hidden_dim)
-
     def forward(self, inputs):
         batch_size, seq_len, num_nodes = inputs.shape
         assert self._input_dim == num_nodes
@@ -95,7 +84,6 @@ class GRU(nn.Module):
             outputs.append(output)
         last_output = outputs[-1]
         return last_output
-
     @staticmethod
     def add_model_specific_arguments(parent_parser):
         parser = argparse.ArgumentParser(parents=[parent_parser], add_help=False)
