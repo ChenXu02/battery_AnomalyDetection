@@ -6,9 +6,6 @@ import time
 from sklearn import preprocessing
 import torch
 
-
-
-
 def load_features(feat_path, dtype=np.float32):
     #feat_df = pd.read_csv(feat_path)
     #feat = np.array(feat_df, dtype=dtype)
