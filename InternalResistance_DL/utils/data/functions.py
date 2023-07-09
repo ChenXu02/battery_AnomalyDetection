@@ -25,7 +25,6 @@ def load_features(feat_path, dtype=np.float32):
 
     return feat, label,ID_code,CandT
 
-
 def generate_dataset(
     data,data2, ID,CandT,datav,datav2, IDv,CandTv,seq_len, pre_len, time_len=None, split_ratio=0.8, normalize=True
 ):
@@ -61,7 +60,6 @@ def generate_dataset(
     train_X, train_Y, val_X, val_Y,test_X,test_Y = train_data, train_data2, test_data, test_data2,data,data2
 
     return np.array(train_X).astype('float64'), np.array(train_Y).astype('float64'), np.array(val_X).astype('float64'), np.array(val_Y).astype('float64'),np.array(test_X).astype('float64'), np.array(test_Y).astype('float64'),train_ID,val_ID,ID,train_T,val_T,CandT
-
 
 def generate_torch_datasets(
     data,data2,ID,CandT,datav,datav2,IDv,CandTv, seq_len, pre_len, time_len=None, split_ratio=0.8, normalize=True
