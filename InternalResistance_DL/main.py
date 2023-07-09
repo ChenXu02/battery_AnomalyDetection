@@ -5,10 +5,6 @@ import tasks
 import utils.data
 from pytorch_lightning.callbacks import ModelCheckpoint
 
-
-
-
-
 def get_model(args, dm):
     model = None
     if args.model_name == "GRU":
