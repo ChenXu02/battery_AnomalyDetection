@@ -1,2 +1,2 @@
 # battery_AnomalyDetection
-Abnormal detection of electric bicycle power battery.
+Anomaly detection of electric bicycle power battery.
